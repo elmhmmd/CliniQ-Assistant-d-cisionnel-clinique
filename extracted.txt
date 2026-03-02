@@ -1,29 +1,16 @@
 <<<PAGE 1>>>
-| 
-
- |
-| --- |
 
-
 GUIDE DES PROTOCOLES
-
-A l’usage des Professionnels de Santé  
-
-exerçant en Poste Isolé  
-
-en Polynésie Française
-
-C
-OMITE DES PROTOCOLES DE SOINS
-
-
-
 
-|  |  |  |  |  |  |
-| --- | --- | --- | --- | --- | --- |
-|  |  |  |  |  |  |
-|  |  |  |  |  |  |
-|  |  |  |  |  |  |
+A l’usage des Professionnels de Santé  
+
+exerçant en Poste Isolé  
+
+en Polynésie Française
+
+COMITE DES PROTOCOLES DE SOINS
+
+
 
 <<<PAGE 2>>>
 PÉDIATRIE
@@ -1527,6 +1514,13 @@ et chroniques (ostéite) ou à la phase initiale d’un choc septique ;
 À l’opposé elle peut être présente dans des pathologies non infectieuses (néoplasies, vascularites, maladies thrombo-
 emboliques)
 Rappel des définitions du SRIS, États septiques (in PILLY Trop, 2022) 
+
+| Tableau 1. Définition du SRIS et des états septiques |
+| :--- |
+| Le **syndrome de réponse inflammatoire systémique (SRIS)** est une réponse inflammatoire systémique de l'organisme à une agression infectieuse ou non infectieuse se manifestant par au moins deux des signes suivants :<br>- température > 38,3 °C ou < 36 °C<br>- fréquence cardiaque > 90/min<br>- fréquence respiratoire > 20/min (ou PaCO2 < 32 mmHg)<br>- leucocytose > 12 ou < 4 G/L ou présence de > 10 % de formes immatures |
+| **Sepsis :** syndrome de réponse inflammatoire systémique (SRIS) de l'organisme à une agression par un agent infectieux bactérien, viral, fongique ou parasitaire.<br>Il est défini comme une dysfonction d'organe menaçant le pronostic vital causée par une réponse dérégulée de l'hôte à l'infection.<br>Une dysfonction d'organe peut être identifiée comme un changement récent du score SOFA ≥ 2 points secondaire à l'infection (**tableau 2**). |
+| Le **choc septique** est défini comme un sepsis avec des anomalies circulatoires et cellulaires/métaboliques suffisamment profondes pour augmenter considérablement la mortalité.<br>Les patients en état de choc septique peuvent être identifiés avec une association de sepsis avec (1) une hypotension artérielle persistante nécessitant l'administration de vasopresseurs pour maintenir la pression artérielle moyenne (PAM) à 65 mm Hg et (2) un taux de lactates sériques > 2 mmol/L (18 mg/dL) malgré une correction adéquate de la volémie. |
+
 Guide des Protocoles - 202546
 
 <<<PAGE 33>>>
