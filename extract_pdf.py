@@ -5,8 +5,7 @@ from pathlib import Path
 
 ARBRE_DECISIONNEL_PAGE = 17  # 0-indexed
 
-# Verbatim text reconstructed from PDF geometry (y-positions).
-# Preserves the original typo "DECISONNEL" from the PDF title.
+
 ARBRE_DECISIONNEL_TEXT = """\
 ARBRE DECISONNEL
 
@@ -74,8 +73,7 @@ def extract_page(page, page_index: int) -> str:
         chars = page.chars
 
         # Build a set of (x0, top) positions belonging to table cells.
-        # Using rounded float positions as stable keys — id() is unreliable
-        # because pdfplumber may regenerate char dicts between accesses.
+       
         table_char_positions: set[tuple[float, float]] = set()
         for bbox in table_bboxes:
             x0, top, x1, bottom = bbox
@@ -91,9 +89,6 @@ def extract_page(page, page_index: int) -> str:
         ]
 
         if outside_chars:
-            # Group chars into visual lines by rounding top coordinate.
-            # Rounding is necessary: chars on the same visual line often have
-            # slightly different float top values due to PDF precision.
             line_buckets: dict[int, list] = {}
             for char in outside_chars:
                 key = round(char["top"])
@@ -106,8 +101,6 @@ def extract_page(page, page_index: int) -> str:
 
             text = "\n".join(text_lines).strip()
             if text:
-                # min() gives the topmost outside char — used to interleave
-                # text blocks and tables in correct reading order within parts.
                 first_top = min(c["top"] for c in outside_chars)
                 parts.append((first_top, text))
     else:
@@ -135,9 +128,6 @@ def extract_pdf(pdf_path: str, output_path: str) -> None:
             print(f"  Processing page {i + 1}/{total}...", end="\r")
             page_text = extract_page(page, i)
             if page_text.strip():
-                # <<<PAGE N>>> is the page delimiter for the chunker.
-                # It carries page provenance without polluting semantic content —
-                # the chunker strips it and stores the number as chunk metadata.
                 pages_output.append(f"<<<PAGE {i + 1}>>>\n{page_text}")
 
     output_path.write_text("\n\n".join(pages_output), encoding="utf-8")
