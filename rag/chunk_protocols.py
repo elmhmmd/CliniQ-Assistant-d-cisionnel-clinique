@@ -109,7 +109,7 @@ def build_chunks(protocols):
     return chunks
 
 
-def main(inp='extracted.txt', out='chunks.json'):
+def main(inp='data/extracted.txt', out='data/chunks.json'):
     text = Path(inp).read_text(encoding='utf-8')
     parts = PAGE_RE.split(text)
     pages = {int(parts[i]): parts[i + 1].strip() for i in range(1, len(parts), 2)}

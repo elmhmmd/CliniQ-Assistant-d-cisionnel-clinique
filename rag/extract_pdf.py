@@ -138,7 +138,7 @@ if __name__ == "__main__":
     pdf = (
         sys.argv[1]
         if len(sys.argv) > 1
-        else "guide-des-protocoles-699b8192dc98d654208814.pdf"
+        else "data/guide-des-protocoles-699b8192dc98d654208814.pdf"
     )
-    out = sys.argv[2] if len(sys.argv) > 2 else "extracted.txt"
+    out = sys.argv[2] if len(sys.argv) > 2 else "data/extracted.txt"
     extract_pdf(pdf, out)

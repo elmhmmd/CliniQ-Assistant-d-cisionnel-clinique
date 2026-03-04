@@ -1,0 +1,22 @@
+# API
+fastapi
+uvicorn[standard]
+pydantic[email]
+pydantic-settings
+
+# Database
+sqlalchemy
+psycopg2-binary
+
+# Auth
+python-jose[cryptography]
+passlib[bcrypt]
+
+# RAG
+langchain-core
+langchain-chroma
+langchain-ollama
+sentence-transformers
+
+# PDF extraction
+pdfplumber

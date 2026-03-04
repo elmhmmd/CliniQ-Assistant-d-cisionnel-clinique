@@ -1,14 +1,3 @@
-"""
-index_chunks.py — Embed chunks.json and persist to ChromaDB.
-
-Embedding model : intfloat/multilingual-e5-base
-  • embed_documents : prepends "passage: "  (E5 convention)
-  • embed_query     : prepends "query: "    (used at retrieval time)
-
-Usage:
-    python index_chunks.py [chunks.json] [chroma_dir]
-"""
-
 import json
 import sys
 from pathlib import Path
@@ -18,16 +7,8 @@ from langchain_core.embeddings import Embeddings
 from sentence_transformers import SentenceTransformer
 
 
-# ── Embedding wrapper ────────────────────────────────────────────────────────
 
 class E5Embeddings(Embeddings):
-    """LangChain-compatible wrapper for E5 multilingual models.
-
-    E5 models require task-specific prefixes:
-      - "passage: " for documents being indexed
-      - "query: "   for user queries at retrieval time
-    """
-
     def __init__(self, model_name: str = "intfloat/multilingual-e5-base"):
         self.model = SentenceTransformer(model_name)
 
@@ -39,9 +20,8 @@ class E5Embeddings(Embeddings):
         return self.model.encode(f"query: {text}", normalize_embeddings=True).tolist()
 
 
-# ── Indexing ─────────────────────────────────────────────────────────────────
 
-def index(chunks_path: str = "chunks.json", chroma_dir: str = "chroma_db") -> None:
+def index(chunks_path: str = "data/chunks.json", chroma_dir: str = "data/chroma_db") -> None:
     chunks_path = Path(chunks_path)
     chroma_dir  = Path(chroma_dir)
 
@@ -69,7 +49,6 @@ def index(chunks_path: str = "chunks.json", chroma_dir: str = "chroma_db") -> No
     count = vectorstore._collection.count()
     print(f"  Done. Collection 'protocols' contains {count} documents.")
 
-    # ── Smoke test ───────────────────────────────────────────────────────────
     print("\nSmoke test — querying: 'traitement diarrhée enfant déshydratation'")
     results = vectorstore.similarity_search(
         "traitement diarrhée enfant déshydratation", k=3
