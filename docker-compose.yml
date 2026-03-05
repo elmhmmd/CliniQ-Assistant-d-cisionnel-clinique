@@ -21,11 +21,15 @@ services:
       - .env
     environment:
       DATABASE_URL: postgresql://cliniq:cliniq@db:5432/cliniq
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     depends_on:
       db:
         condition: service_healthy
     volumes:
       - ./data:/app/data
+      - huggingface_cache:/root/.cache/huggingface
 
 volumes:
   postgres_data:
+  huggingface_cache:

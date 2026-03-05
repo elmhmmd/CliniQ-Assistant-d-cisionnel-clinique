@@ -41,7 +41,7 @@ class Retriever:
     _cross_encoder:  CrossEncoder | None = field(default=None, init=False, repr=False)
 
     def _load(self) -> None:
-        if self._vectorstore is not None:
+        if self._vectorstore is not None and self._cross_encoder is not None:
             return
         bi_encoder = SentenceTransformer(self.bi_encoder_model)
         embeddings  = _E5Embeddings(bi_encoder)
