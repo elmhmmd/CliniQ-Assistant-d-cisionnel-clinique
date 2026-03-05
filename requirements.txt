@@ -20,3 +20,11 @@ sentence-transformers
 
 # PDF extraction
 pdfplumber
+
+# LLMOps
+mlflow
+deepeval
+
+# Testing
+pytest
+httpx

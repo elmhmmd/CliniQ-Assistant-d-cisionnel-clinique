@@ -16,5 +16,8 @@ class Settings(BaseSettings):
     ollama_model: str = "mistral"
     retriever_k: int = 5
 
+    # MLflow
+    mlflow_tracking_uri: str = "http://mlflow:5000"
+
 
 settings = Settings()
