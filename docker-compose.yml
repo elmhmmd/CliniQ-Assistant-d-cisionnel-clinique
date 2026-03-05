@@ -30,6 +30,19 @@ services:
       - ./data:/app/data
       - huggingface_cache:/root/.cache/huggingface
 
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.14.1
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow_data:/mlflow
+    command: >
+      mlflow server
+      --host 0.0.0.0
+      --port 5000
+      --backend-store-uri sqlite:///mlflow/mlflow.db
+      --default-artifact-root /mlflow/artifacts
+
   frontend:
     build: ./frontend
     ports:
@@ -42,3 +55,4 @@ services:
 volumes:
   postgres_data:
   huggingface_cache:
+  mlflow_data:

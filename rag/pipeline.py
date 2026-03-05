@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from rag.retriever import Retriever
+from rag.mlflow_logger import setup_mlflow
 from langchain_ollama import ChatOllama
 from langchain_core.messages import SystemMessage, HumanMessage
 
@@ -25,14 +26,18 @@ Question : {question}\
 class Pipeline:
     def __init__(
         self,
-        model:     str = "mistral",
-        top_k:     int = 5,
-        specialty: str | None = None,
+        model:        str = "mistral",
+        top_k:        int = 5,
+        specialty:    str | None = None,
+        tracking_uri: str = "http://mlflow:5000",
     ):
         self.retriever = Retriever()
         self.llm = ChatOllama(model=model, temperature=0)
         self.top_k = top_k
         self.specialty = specialty
+        self.model = model
+        self.tracking_uri = tracking_uri
+        setup_mlflow(tracking_uri)
 
     def query(self, question: str, specialty: str | None = None) -> dict:
         sp = specialty or self.specialty
@@ -58,4 +63,8 @@ class Pipeline:
             for c in chunks
         ]
 
-        return {"answer": response.content, "sources": sources}
+        return {
+            "answer":   response.content,
+            "sources":  sources,
+            "contexts": [c["page_content"] for c in chunks],
+        }

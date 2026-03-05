@@ -10,8 +10,9 @@ from backend.models.user import User
 
 
 MOCK_RESULT = {
-    "answer": "Voici le protocole.",
-    "sources": [{"specialty": "Médecine Adulte", "protocol": "Test", "score": 0.9}],
+    "answer":   "Voici le protocole.",
+    "sources":  [{"specialty": "Médecine Adulte", "protocol": "Test", "score": 0.9}],
+    "contexts": ["Contexte de test."],
 }
 
 
