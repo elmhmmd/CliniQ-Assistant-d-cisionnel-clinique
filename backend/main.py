@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from prometheus_fastapi_instrumentator import Instrumentator
 
 from backend.api.endpoints import admin, auth, health, query
 from backend.core.database import Base, engine
@@ -9,6 +10,8 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title="CliniQ", version="0.1.0")
 
 register_exception_handlers(app)
+
+Instrumentator().instrument(app).expose(app)
 
 app.include_router(health.router, tags=["health"])
 app.include_router(auth.router, tags=["auth"])

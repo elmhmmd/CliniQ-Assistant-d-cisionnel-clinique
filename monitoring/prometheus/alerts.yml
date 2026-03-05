@@ -1,0 +1,45 @@
+groups:
+  - name: cliniq_alerts
+    rules:
+      - alert: HighLatency
+        expr: >
+          histogram_quantile(0.95,
+            rate(http_request_duration_seconds_bucket{handler="/query"}[5m])
+          ) > 30
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "RAG latency P95 > 30s"
+          description: "The /query endpoint P95 latency has exceeded 30 seconds for 2 minutes."
+
+      - alert: HighErrorRate
+        expr: >
+          rate(http_requests_total{status=~"5.."}[5m])
+          / rate(http_requests_total[5m]) > 0.1
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Error rate > 10%"
+          description: "More than 10% of requests are returning 5xx errors."
+
+      - alert: NoRequests
+        expr: rate(http_requests_total{handler="/query"}[10m]) == 0
+        for: 10m
+        labels:
+          severity: info
+        annotations:
+          summary: "No queries in 10 minutes"
+          description: "The /query endpoint has received no traffic for 10 minutes."
+
+      - alert: HighMemoryUsage
+        expr: >
+          container_memory_usage_bytes{name=~".*api.*"}
+          / 1024 / 1024 > 1500
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "API memory usage > 1.5GB"
+          description: "The API container is using more than 1.5GB of memory."

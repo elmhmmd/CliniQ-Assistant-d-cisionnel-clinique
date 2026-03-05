@@ -1,0 +1,112 @@
+{
+  "uid": "cliniq-monitoring",
+  "title": "CliniQ Monitoring",
+  "tags": ["cliniq"],
+  "timezone": "browser",
+  "refresh": "30s",
+  "schemaVersion": 38,
+  "version": 1,
+  "panels": [
+    {
+      "id": 1,
+      "title": "Requêtes par seconde",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "rate(http_requests_total[1m])",
+          "legendFormat": "{{handler}} — {{status}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "reqps" }
+      }
+    },
+    {
+      "id": 2,
+      "title": "Latence P95 — /query (s)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{handler='/query'}[5m]))",
+          "legendFormat": "P95"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "histogram_quantile(0.50, rate(http_request_duration_seconds_bucket{handler='/query'}[5m]))",
+          "legendFormat": "P50"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "s" }
+      }
+    },
+    {
+      "id": 3,
+      "title": "Taux d'erreurs 5xx",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "rate(http_requests_total{status=~'5..'}[5m])",
+          "legendFormat": "Erreurs 5xx/s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "reqps", "color": { "fixedColor": "red", "mode": "fixed" } }
+      }
+    },
+    {
+      "id": 4,
+      "title": "Nombre total de requêtes RAG",
+      "type": "stat",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "increase(http_requests_total{handler='/query', status='200'}[24h])",
+          "legendFormat": "Queries (24h)"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "short" }
+      }
+    },
+    {
+      "id": 5,
+      "title": "CPU container API (%)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 },
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "rate(container_cpu_usage_seconds_total{name=~'.*api.*'}[1m]) * 100",
+          "legendFormat": "API CPU"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "percent", "max": 100 }
+      }
+    },
+    {
+      "id": 6,
+      "title": "Mémoire container API (MB)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 16 },
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "container_memory_usage_bytes{name=~'.*api.*'} / 1024 / 1024",
+          "legendFormat": "API Memory"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "megabytes" }
+      }
+    }
+  ]
+}

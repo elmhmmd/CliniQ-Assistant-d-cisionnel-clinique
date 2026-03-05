@@ -25,6 +25,9 @@ pdfplumber
 mlflow
 deepeval
 
+# Monitoring
+prometheus-fastapi-instrumentator
+
 # Testing
 pytest
 httpx
